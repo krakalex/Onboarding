@@ -1,11 +1,10 @@
-describe("Place a new Order", function(){
+describe("Place a new Order", function() {
 
-    it("Step 01: Open the Fiori app", async function(){
+    it("Step 01: Open the Fiori app", async function() {
         await ui5.navigation.navigateToApplication("");
-        // await util.browser.sleep(5000);
     });
 
-    it("Step 02: Click Add to Shopping Cart", async function(){
+    it("Step 02: Click Add to Shopping Cart", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Welcome",
@@ -15,7 +14,8 @@ describe("Place a new Order", function(){
         };
         await ui5.userInteraction.click(selector);
     });
-    it("Step 03: Click Show Shopping Cart", async function(){
+
+    it("Step 03: Click Show Shopping Cart", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Welcome",
@@ -25,7 +25,8 @@ describe("Place a new Order", function(){
         };
         await ui5.userInteraction.click(selector);
     });
-    it("Step 04: Click Process button", async function(){
+
+    it("Step 04: Click Process button", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Cart",
@@ -35,7 +36,8 @@ describe("Place a new Order", function(){
         };
         await ui5.userInteraction.click(selector);
     });
-    it("Step 05: Click Step 2 button", async function(){
+
+    it("Step 05: Click Step 2 button", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -45,7 +47,8 @@ describe("Place a new Order", function(){
         };
         await ui5.userInteraction.click(selector);
     });
-    it("Step 06: Choose Bank transfer", async function(){
+
+    it("Step 06: Choose Bank transfer", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -55,7 +58,8 @@ describe("Place a new Order", function(){
         };
         await ui5.userInteraction.click(selector);
     });
-    it("Step 07: Proceed to Step 3", async function(){
+
+    it("Step 07: Proceed to Step 3", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -64,8 +68,9 @@ describe("Place a new Order", function(){
             }
         };
         await ui5.userInteraction.click(selector);
-    })
-    it("Step 07: Proceed to Step 4", async function(){
+    });
+
+    it("Step 07: Proceed to Step 4", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -74,8 +79,9 @@ describe("Place a new Order", function(){
             }
         };
         await ui5.userInteraction.click(selector);
-    })
-    it("Step 08: Input address", async function(){
+    });
+
+    it("Step 08: Input address", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -92,8 +98,9 @@ describe("Place a new Order", function(){
         await common.userInteraction.pressTab();
         await common.userInteraction.clearAndFillActive("Neverland");
         await common.userInteraction.pressEnter();
-    })
-    it("Step 09: Proceed to Step 5", async function(){
+    });
+
+    it("Step 09: Proceed to Step 5", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -102,8 +109,9 @@ describe("Place a new Order", function(){
             }
         };
         await ui5.userInteraction.click(selector);
-    })
-    it("Step 10: Proceed to the Order Summary", async function(){
+    });
+
+    it("Step 10: Proceed to the Order Summary", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -112,8 +120,9 @@ describe("Place a new Order", function(){
             }
         };
         await ui5.userInteraction.click(selector);
-    })
-    it("Step 11: Submit the Order", async function(){
+    });
+
+    it("Step 11: Submit the Order", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.Checkout",
@@ -124,10 +133,9 @@ describe("Place a new Order", function(){
         await ui5.userInteraction.click(selector);
         await util.browser.sleep(1000);
         await common.userInteraction.pressEnter();
-        // await common.userInteraction.pressEnter();
-        // await common.userInteraction.pressEnter();
         await util.browser.sleep(5000);
-    })
+    });
+
     it("Step 12: Get newly created Order ID", async function() {
         const selector = {
             "elementProperties": {
@@ -138,7 +146,7 @@ describe("Place a new Order", function(){
         const rawConfText = await ui5.element.getPropertyValue(selector, "htmlText");
 
         let orderID = rawConfText.substring(
-            rawConfText.indexOf("Your order number: ") + 19, 
+            rawConfText.indexOf("Your order number: ") + 19,
             rawConfText.lastIndexOf("</strong>")
         );
 
@@ -146,11 +154,11 @@ describe("Place a new Order", function(){
         const userData = {
             "orderConfirmation": orderID
         };
-     
+
         browser.config.params.export.orderConfirmation = userData;
 
         const references = browser.config.params.import.data["references"];
         references.orderConfirmation = orderID;
-        
     })
+
 })
