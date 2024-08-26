@@ -128,22 +128,29 @@ describe("Place a new Order", function(){
         // await common.userInteraction.pressEnter();
         await util.browser.sleep(5000);
     })
-    it("Step 12: Get newly created Order ID", async function(){
+    it("Step 12: Get newly created Order ID", async function() {
         const selector = {
             "elementProperties": {
                 "viewName": "sap.ui.demo.cart.view.OrderCompleted",
                 "metadata": "sap.m.FormattedText"
             }
         };
-        const OrderID = await ui5.element.getPropertyValue(selector, "htmlText");
-        util.console.log(OrderID);
+        const rawConfText = await ui5.element.getPropertyValue(selector, "htmlText");
+
+        let orderID = rawConfText.substring(
+            rawConfText.indexOf("Your order number: ") + 19, 
+            rawConfText.lastIndexOf("</strong>")
+        );
+
+        util.console.log(orderID);
         const userData = {
-            "orderConfirmation": OrderID
+            "orderConfirmation": orderID
         };
+     
         browser.config.params.export.orderConfirmation = userData;
 
         const references = browser.config.params.import.data["references"];
-        references.orderConfirmation = OrderID;
+        references.orderConfirmation = orderID;
         
     })
 })
