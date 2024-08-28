@@ -1,4 +1,6 @@
-class ShoppingCartPage {
+const BasePage = require("./BasePage");
+
+class ShoppingCartPage extends BasePage {
 
     proceedButtonSelector = {
         "elementProperties": {
@@ -7,7 +9,7 @@ class ShoppingCartPage {
             "id": "*proceedButton"
         }
     }
-    async proceed() {
+    async proceedToCOut() {
         await ui5.userInteraction.click(this.proceedButtonSelector);
     };
 }

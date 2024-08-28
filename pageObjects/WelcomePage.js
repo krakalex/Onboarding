@@ -1,11 +1,6 @@
-// var BasePage = require("./BasePage");
+const BasePage = require("./BasePage");
 
-// class WelcomePage extends BasePage {
-class WelcomePage {
-
-    async openApplication() {
-        await ui5.navigation.navigateToApplication("");
-    };
+class WelcomePage extends BasePage {
 
     addItemToCartButtonSelector = {
         "elementProperties": {

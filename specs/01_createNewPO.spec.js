@@ -19,51 +19,42 @@ describe("Place a new Order", function() {
     });
 
     it("Step 04: Proceed to the Checkout Process", async function() {
-        await shoppingCartPage.proceed();
-        await checkoutPage.step2();
+        await shoppingCartPage.proceedToCOut();
     });
 
-    it("Step 05: Choose Bank transfer", async function() {
-        await checkoutPage.payViaBank();
+    it("Step 05: Complete the Payment Type step", async function() {
+        await checkoutPage.moveToPmtTypeStep();
+        await checkoutPage.selectPayViaBank();
+        await checkoutPage.moveToAccDetailsStep();
     });
 
-    it("Step 06: Proceed to Step 4 - Invoice Address", async function() {
-        await checkoutPage.step3();
-        await checkoutPage.step4();
+    it("Step 06: Proceed to the Invoice Address step", async function() {
+        await checkoutPage.moveToInvAddressStep();
     });
 
-    it("Step 07: Fill the Invoice Address in", async function() {
-        await checkoutPage.enterAddress();
-        await checkoutPage.enterCity();
-        await checkoutPage.enterZipCode();
-        await checkoutPage.enterCountry();
-        
+    it("Step 07: Fill the Invoice Address data in", async function() {
+        await checkoutPage.enterAddress(checkoutData.invoiceAddress.address);
+        await checkoutPage.enterCity(checkoutData.invoiceAddress.city);
+        await checkoutPage.enterZipCode(checkoutData.invoiceAddress.zipCode);
+        await checkoutPage.enterCountry(checkoutData.invoiceAddress.country);
     });
 
     it("Step 08: Proceed to the Order Summary", async function() {
-        await checkoutPage.step5();
-        await checkoutPage.orderSummary();
+        await checkoutPage.moveToDlvTypeStep();
+        await checkoutPage.moveToOrderSummary();
     });
 
     it("Step 09: Submit the Order", async function() {
-        await checkoutPage.submitOrder();
+        await checkoutPage.clckSubmitOrder();
     });
 
-    it("Step 10: Get newly created Order ID", async function() {
-        await orderCompletedPage.getOrderID();
+    it("Step 10: Verify that the order has been placed successfully", async function() {
+        await orderCompletedPage.verifyOrderPlacedSuccessfully();
+    });
 
-        // let orderID = rawConfText.substring(
-        //     rawConfText.indexOf("Your order number: ") + 19,
-        //     rawConfText.lastIndexOf("</strong>")
-        // );
+    it("Step 11: Get newly created Order ID", async function() {
+        const orderID = await orderCompletedPage.getOrderID();
+    });
 
-        // util.console.log(orderID);
-        // const userData = {
-        //     "orderConfirmation": orderID
-        // };
-
-        // browser.config.params.export.orderConfirmation = userData;
-
-    })
-
+    
 })

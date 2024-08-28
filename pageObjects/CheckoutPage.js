@@ -1,6 +1,6 @@
-const checkoutData = require("../data/checkoutData.json");
+const BasePage = require("./BasePage");
 
-class CheckoutPage {
+class CheckoutPage extends BasePage {
 
     step2ButtonSelector = {
         "elementProperties": {
@@ -9,7 +9,7 @@ class CheckoutPage {
             "id": "*contentsStep-nextButton"
         }
     }
-    async step2() {
+    async moveToPmtTypeStep() {
         await ui5.userInteraction.click(this.step2ButtonSelector);
     };
 
@@ -20,7 +20,7 @@ class CheckoutPage {
                 "id": "*payViaBank-button"
         }
     }
-    async payViaBank() {
+    async selectPayViaBank() {
         await ui5.userInteraction.click(this.payViaBankPanelButtonSelector);
     };
 
@@ -31,7 +31,7 @@ class CheckoutPage {
                 "id": "*paymentTypeStep-nextButton"
         }
     }
-    async step3() {
+    async moveToAccDetailsStep() {
         await ui5.userInteraction.click(this.step3ButtonSelector);
     };
 
@@ -42,7 +42,7 @@ class CheckoutPage {
                 "id": "*bankAccountStep-nextButton"
         }
     }
-    async step4() {
+    async moveToInvAddressStep() {
         await ui5.userInteraction.click(this.step4ButtonSelector);
     };
 
@@ -53,9 +53,9 @@ class CheckoutPage {
                 "id": "*invoiceAddressAddress"
         }
     }
-    async enterAddress() {
+    async enterAddress(address) {
         await ui5.userInteraction.click(this.addressFieldSelector);
-        await ui5.userInteraction.clearAndFill(this.addressFieldSelector, checkoutData.invoiceAddress.address);
+        await ui5.userInteraction.clearAndFill(this.addressFieldSelector, address);
     };
 
     cityFieldSelector = {
@@ -65,9 +65,9 @@ class CheckoutPage {
             "id": "*invoiceAddressCity"
         }
     }
-    async enterCity() {
+    async enterCity(city) {
         await ui5.userInteraction.click(this.cityFieldSelector);
-        await ui5.userInteraction.clearAndFill(this.cityFieldSelector, checkoutData.invoiceAddress.city);
+        await ui5.userInteraction.clearAndFill(this.cityFieldSelector, city);
     };
 
     zipFieldSelector = {
@@ -77,9 +77,9 @@ class CheckoutPage {
             "id": "*invoiceAddressZip"
         }
     }
-    async enterZipCode() {
+    async enterZipCode(zipCode) {
         await ui5.userInteraction.click(this.zipFieldSelector);
-        await ui5.userInteraction.clearAndFill(this.zipFieldSelector, checkoutData.invoiceAddress.zipCode);
+        await ui5.userInteraction.clearAndFill(this.zipFieldSelector, zipCode);
     };
 
     countryFieldSelector = {
@@ -89,9 +89,9 @@ class CheckoutPage {
             "id": "*invoiceAddressCountry"
         }
     }
-    async enterCountry() {
+    async enterCountry(country) {
         await ui5.userInteraction.click(this.countryFieldSelector);
-        await ui5.userInteraction.clearAndFill(this.countryFieldSelector, checkoutData.invoiceAddress.country);
+        await ui5.userInteraction.clearAndFill(this.countryFieldSelector, country);
         await common.userInteraction.pressEnter();
     };
 
@@ -102,7 +102,7 @@ class CheckoutPage {
             "id": "*invoiceStep-nextButton"
         }
     }
-    async step5() {
+    async moveToDlvTypeStep() {
         await ui5.userInteraction.click(this.step5ButtonSelector);
     };
 
@@ -113,7 +113,7 @@ class CheckoutPage {
             "id": "*deliveryTypeStep-nextButton"
         }
     }
-    async orderSummary() {
+    async moveToOrderSummary() {
         await ui5.userInteraction.click(this.orderSummaryButtonSelector);
     };
 
@@ -124,7 +124,7 @@ class CheckoutPage {
             "id": "*submitOrder"
         }
     }
-    async submitOrder() {
+    async clckSubmitOrder() {
         await ui5.userInteraction.click(this.submitButtonSelector);
         await util.browser.sleep(1000);
         await common.userInteraction.pressEnter();
