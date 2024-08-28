@@ -1,0 +1,8 @@
+{
+    "invoiceAddress": {
+        "address": "My Value",
+        "city": "My Value",
+        "zipCode": "220022",
+        "country": "Neverland"
+    }
+}
