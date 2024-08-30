@@ -15,7 +15,7 @@ class ProductCatalog extends BasePage {
         await ui5.userInteraction.clearAndFill(this.searchFieldSelector, searchValue);
     };
 
-    itemSelector = {
+    itemTitlesSelector = {
         "elementProperties": {
             "viewName": "sap.ui.demo.cart.view.Home",
             "metadata": "sap.m.ObjectListItem",
@@ -24,13 +24,14 @@ class ProductCatalog extends BasePage {
     }
 
     async getItemsTitles() {
-        const itemResultTitles = await ui5.element.getAllDisplayed(this.itemSelector);
+        const itemResultTitles = await ui5.element.getAllDisplayed(this.itemTitlesSelector);
         return itemResultTitles;
     }
 
-    async verifyTitleContainsText(titleElement, searchValue) {
-        const titleText = await titleElement.getText();
-        expect(titleText).toContain(searchValue);
+    async verifyTitleContainsText(itemTitleElement, searchValue) {
+        const titleText = await itemTitleElement.getText();
+        return titleText
+        await ui5.assertion.expectAttributeToContain(titleText, searchValue);
     }
 }
 
