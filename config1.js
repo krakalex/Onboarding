@@ -6,7 +6,7 @@ exports.config = {
     
   specs: [
     [
-      // "./specs/01_createNewPO.spec.js",
+      "./specs/01_createNewPO.spec.js",
       "./specs/02_searchByTitle.spec.js"
     ],
   ],
