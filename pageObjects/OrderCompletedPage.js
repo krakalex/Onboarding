@@ -8,11 +8,9 @@ class OrderCompletedPage extends BasePage {
                 "metadata": "sap.m.FormattedText"
         }
     }
-
     async verifyOrderPlacedSuccessfully() {
         await ui5.assertion.expectAttributeToContain(this.orderConfirmationSelector, "htmlText", "You will receive an e-mail confirmation shortly.")
     };
-
     async getOrderID() {
         const rawConfText = await ui5.element.getPropertyValue(this.orderConfirmationSelector, "htmlText");
     
@@ -20,10 +18,19 @@ class OrderCompletedPage extends BasePage {
             rawConfText.indexOf("Your order number: ") + 19,
             rawConfText.lastIndexOf("</strong>")
         );
-        return orderID;
-    };
 
     
-};
+
+        // util.console.log(orderID);
+        // const userData = {
+        //     "orderConfirmation": orderID
+
+        // };
+
+        // browser.config.params.export.orderConfirmation = userData;
+
+        return orderID;
+    }
+}
 
 module.exports = new OrderCompletedPage();

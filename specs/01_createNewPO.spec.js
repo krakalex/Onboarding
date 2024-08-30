@@ -54,6 +54,7 @@ describe("Place a new Order", function() {
 
     it("Step 11: Get newly created Order ID", async function() {
         const orderID = await orderCompletedPage.getOrderID();
-        await orderCompletedPage.setOrderID(orderID); 
     });
+
+    
 })

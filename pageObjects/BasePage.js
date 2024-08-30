@@ -3,7 +3,6 @@ class BasePage {
     async openApplication() {
         await ui5.navigation.navigateToApplication("");
     }
-    
 //     async setReferenceValue(valueName, value) {
 //         const references = await browser.config.params.import.references;
 //         await common.assertion.expectDefined(references);
