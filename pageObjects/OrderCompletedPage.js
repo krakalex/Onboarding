@@ -20,13 +20,13 @@ class OrderCompletedPage extends BasePage {
         );
 
     
-
+    
         // util.console.log(orderID);
         // const userData = {
         //     "orderConfirmation": orderID
-
+    
         // };
-
+        
         // browser.config.params.export.orderConfirmation = userData;
 
         return orderID;
