@@ -20,10 +20,10 @@ exports.config = {
   params: {
     import: {
       data: "./data/",
-      orderConfirmation: "./data/orderConfirmation.json"
+      references: "./data/orderConfirmation.json"
     },
     export: {
-      orderConfirmation: "./data/orderConfirmation.json"
+      references: "./data/orderConfirmation.json"
     }
   },
   
