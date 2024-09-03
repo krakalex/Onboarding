@@ -16,7 +16,6 @@ class ProductCatalog extends BasePage {
     };
 
     itemsSelector = {
-
             "elementProperties": {
                     "viewName": "sap.ui.demo.cart.view.Home",
                     "metadata": "sap.m.ObjectListItem",
