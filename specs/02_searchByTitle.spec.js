@@ -13,11 +13,7 @@ describe("Perform Search Functioanlity", function() {
     });
 
     it("Step 03: Verify that the search result contains only searched items", async function() {
-        const itemTitlesElements = await productCatalog.getItemsTitles()
-        
-        for (const itemTitleElement of itemTitlesElements) {
-            await productCatalog.verifyTitleContainsText(itemTitleElement, searchData.searchValue);
-        }
+        await productCatalog.verifySearchResults(searchData.searchValue);
+        await productCatalog.logItemTitles();
     });
-
 })

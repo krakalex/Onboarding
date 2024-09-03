@@ -15,24 +15,30 @@ class ProductCatalog extends BasePage {
         await ui5.userInteraction.clearAndFill(this.searchFieldSelector, searchValue);
     };
 
-    itemTitlesSelector = {
-        "elementProperties": {
-            "viewName": "sap.ui.demo.cart.view.Home",
-            "metadata": "sap.m.ObjectListItem",
-            "bindingContextPath": "/Products*'*')"
+    itemsSelector = {
+
+            "elementProperties": {
+                    "viewName": "sap.ui.demo.cart.view.Home",
+                    "metadata": "sap.m.ObjectListItem",
+                    "bindingContextPath": "/Products*'*'"
+            }
+    };
+
+    async verifySearchResults(searchValue) {
+        const itemElements = await ui5.element.getAllDisplayed(this.itemsSelector);
+        const maxElements = (itemElements.length);
+        for (let index = 0; index < maxElements; index++) {
+            await ui5.assertion.expectAttributeToContain(this.itemsSelector, "title", searchValue, index);
+        }
+    };
+
+    async logItemTitles() {
+        const itemElements = await ui5.element.getAllDisplayed(this.itemsSelector);
+        for (const itemElement of itemElements) {
+            const titleValue = await ui5.control.getProperty(itemElement, "title");
+            console.log(titleValue)
         }
     }
-
-    async getItemsTitles() {
-        const itemResultTitles = await ui5.element.getAllDisplayed(this.itemTitlesSelector);
-        return itemResultTitles;
-    }
-
-    async verifyTitleContainsText(itemTitleElement, searchValue) {
-        const titleText = await itemTitleElement.getText();
-        return titleText
-        await ui5.assertion.expectAttributeToContain(titleText, searchValue);
-    }
-}
+}    
 
 module.exports = new ProductCatalog();
