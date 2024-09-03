@@ -23,16 +23,20 @@ class ProductCatalog extends BasePage {
             }
     };
 
-    async verifySearchResults(searchValue) {
-        const itemElements = await ui5.element.getAllDisplayed(this.itemsSelector);
-        const maxElements = (itemElements.length);
-        for (let index = 0; index < maxElements; index++) {
+    async getiItemElements() {
+        return await ui5.element.getAllDisplayed(this.itemsSelector);
+    };
+
+    async verifyItemTitles(searchValue) {
+        const itemElements = await this.getiItemElements();
+        const elementsCount = (itemElements.length);
+        for (let index = 0; index < elementsCount; index++) {
             await ui5.assertion.expectAttributeToContain(this.itemsSelector, "title", searchValue, index);
         }
     };
 
     async logItemTitles() {
-        const itemElements = await ui5.element.getAllDisplayed(this.itemsSelector);
+        const itemElements = await this.getiItemElements();
         for (const itemElement of itemElements) {
             const titleValue = await ui5.control.getProperty(itemElement, "title");
             console.log(titleValue)
