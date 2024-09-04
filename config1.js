@@ -4,9 +4,14 @@ exports.config = {
 
   baseUrl: "https://sapui5.hana.ondemand.com/test-resources/sap/m/demokit/cart/webapp/index.html",
     
+  maxInstances: 3,
+
+  logLevel: 'warn',
+  
   specs: [
     [
-      "./specs/01_createNewPO.spec.js"
+      "./specs/01_createNewPO.spec.js",
+      "./specs/02_searchByTitle.spec.js"
     ],
   ],
 
