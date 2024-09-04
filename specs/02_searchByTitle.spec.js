@@ -14,7 +14,7 @@ describe("Perform Search Functioanlity", function() {
 
     it("Step 03: Verify that the search result contains only searched items", async function() {
         await productCatalog.getiItemElements();
-        await productCatalog.verifyItemTitles(searchData.searchValue);
+        await productCatalog.verifyItemTitlesContainsSought(searchData.searchValue);
         await productCatalog.logItemTitles();
     });
 })

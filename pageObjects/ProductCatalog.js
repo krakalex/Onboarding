@@ -27,10 +27,10 @@ class ProductCatalog extends BasePage {
         return await ui5.element.getAllDisplayed(this.itemsSelector);
     };
 
-    async verifyItemTitles(searchValue) {
+    async verifyItemTitlesContainsSought(searchValue) {
         const itemElements = await this.getiItemElements();
-        const elementsCount = (itemElements.length);
-        for (let index = 0; index < elementsCount; index++) {
+        const itemElementsCount = (itemElements.length);
+        for (let index = 0; index < itemElementsCount; index++) {
             await ui5.assertion.expectAttributeToContain(this.itemsSelector, "title", searchValue, index);
         }
     };
