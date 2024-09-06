@@ -35,11 +35,11 @@ class ProductCatalog extends BasePage {
         }
     };
 
-    async logItemTitles() {
+    async verifyItemTitlesContainText(searchValue) {
         const itemElements = await this.getiItemElements();
         for (const itemElement of itemElements) {
             const titleValue = await ui5.control.getProperty(itemElement, "title");
-            console.log(titleValue)
+            expect(titleValue).toContain(searchValue);
         }
     }
 }    
