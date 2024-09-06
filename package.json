@@ -3,10 +3,12 @@
     "@sap_oss/wdio-qmate-service": "^2.3.1"
   },
   "devDependencies": {
+    "@wdio/allure-reporter": "^9.0.8",
     "@wdio/cli": "^8.27.1",
     "@wdio/local-runner": "^8.27.0",
     "@wdio/mocha-framework": "^9.0.6",
     "@wdio/spec-reporter": "^9.0.4",
+    "allure-commandline": "^2.30.0",
     "chromedriver": "^128.0.0",
     "wdio-chromedriver-service": "^8.1.1"
   },
