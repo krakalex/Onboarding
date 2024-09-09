@@ -25,6 +25,7 @@ describe("Place a new Order", function() {
     it("Step 05: Complete the Payment Type step", async function() {
         await checkoutPage.moveToPmtTypeStep();
         await checkoutPage.selectPayViaBank();
+        await checkoutPage.waitForButtonIsVisible();
         await checkoutPage.moveToAccDetailsStep();
     });
 

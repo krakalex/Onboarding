@@ -6,6 +6,7 @@ describe("Perform Search Functioanlity", function() {
 
     it("Step 01: Open the Fiori app", async function() {
         await welcomePage.openApplication();
+        await productCatalog.waitForPageOpened();
     });
 
     it("Step 02: Enter a value into the Search field", async function() {
