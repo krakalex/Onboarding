@@ -11,7 +11,6 @@ class WelcomePage extends BasePage {
     }
     async addItemToCart() {
         await ui5.userInteraction.click(this.addItemToCartButtonSelector, 1);
-        await browser.takeScreenshot();
     };
 
     itemsSelector = {

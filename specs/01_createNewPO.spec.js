@@ -13,6 +13,7 @@ describe("Place a new Order", function() {
     it("Step 02: Add Item to Shopping Cart", async function() {
         // await welcomePage.addItemToCart();
         await welcomePage.addItemToCartByName("Smartphone Alpha");
+        await browser.takeScreenshot();
     });
 
     it("Step 03: Show Shopping Cart", async function() {
@@ -27,6 +28,7 @@ describe("Place a new Order", function() {
         await checkoutPage.moveToPmtTypeStep();
         await checkoutPage.selectPayViaBank();
         await checkoutPage.waitForButtonIsVisible();
+        await browser.takeScreenshot();
         await checkoutPage.moveToAccDetailsStep();
     });
 
@@ -39,6 +41,7 @@ describe("Place a new Order", function() {
         await checkoutPage.enterCity(checkoutData.invoiceAddress.city);
         await checkoutPage.enterZipCode(checkoutData.invoiceAddress.zipCode);
         await checkoutPage.enterCountry(checkoutData.invoiceAddress.country);
+        await browser.takeScreenshot();
     });
 
     it("Step 08: Proceed to the Order Summary", async function() {
@@ -47,11 +50,13 @@ describe("Place a new Order", function() {
     });
 
     it("Step 09: Submit the Order", async function() {
-        await checkoutPage.clckSubmitOrder();
+        await checkoutPage.submitOrder();
+        await browser.takeScreenshot();
     });
 
     it("Step 10: Verify that the order has been placed successfully", async function() {
         await orderCompletedPage.verifyOrderPlacedSuccessfully();
+        await browser.takeScreenshot();
     });
 
     it("Step 11: Get newly created Order ID", async function() {
