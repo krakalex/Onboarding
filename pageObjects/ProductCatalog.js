@@ -15,7 +15,7 @@ class ProductCatalog extends BasePage {
             async () => {
             return (await ui5.element.isVisible(this.searchFieldSelector));
             }, {
-            timeout: 50,
+            timeout: 5000,
             timeoutMsg: 'Next step button is not visible.'
             }
         )
@@ -31,28 +31,17 @@ class ProductCatalog extends BasePage {
                     "viewName": "sap.ui.demo.cart.view.Home",
                     "metadata": "sap.m.ObjectListItem",
                     "bindingContextPath": "/Products*'*'"
-            },
-            "descendantProperties": {
-                    "viewName": "sap.ui.demo.cart.view.Home",
-                    "metadata": "sap.m.ObjectAttribute"
             }
-// "elementProperties": {
-    // "viewName": "sap.ui.demo.cart.view.Home",
-    // "metadata": "sap.m.List",
-    // "id": "*productList"
+    };
 
-    "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.Text",
-        "bindingContextPath": "/Products*'*')"
-
-         "elementProperties": {
-        "viewName": "sap.ui.demo.cart.view.Home",
-        "metadata": "sap.m.Text",
-        "bindingContextPath": "/Products*'*')"
+    itemsTitlesSelector = {
+            "elementProperties": {
+                    "viewName": "sap.ui.demo.cart.view.Home",
+                    "metadata": "sap.m.Text",
+                    "bindingContextPath": "/Products*'*')"
         },
-        "siblingProperties": {
-    	    "metadata": "sap.m.ObjectAttribute"
+            "siblingProperties": {
+    	            "metadata": "sap.m.ObjectAttribute"
         }   
     };
 
@@ -60,7 +49,7 @@ class ProductCatalog extends BasePage {
         return await ui5.element.getAllDisplayed(this.itemsSelector);
     };
 
-    async verifyItemTitlesContainsSought(searchValue) {
+    async verifyItemTitlesContainText(searchValue) {
         const itemElements = await this.getiItemElements();
         const itemElementsCount = (itemElements.length);
         for (let index = 0; index < itemElementsCount; index++) {
@@ -68,11 +57,19 @@ class ProductCatalog extends BasePage {
         }
     };
 
-    async verifyItemTitlesContainText(searchValue) {
+    async verifyItemTitlesContainText2(searchValue) {
         const itemElements = await this.getiItemElements();
         for (const itemElement of itemElements) {
             const titleValue = await ui5.control.getProperty(itemElement, "title");
             expect(titleValue).toContain(searchValue);
+        }
+    };
+
+    async verifyItemsTitlesContainText(searchValue) {
+        const itemTitles = await ui5.element.getAllDisplayed(this.itemsTitlesSelector);
+        const itemTitlesCount = (itemTitles.length);
+        for (let index = 0; index < itemTitlesCount; index++) {
+            await ui5.assertion.expectAttributeToContain(this.itemsTitlesSelector, "text", searchValue, index);
         }
     }
 }    
