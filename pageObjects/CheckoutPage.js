@@ -10,7 +10,6 @@ class CheckoutPage extends BasePage {
         }
     }
     async moveToPmtTypeStep() {
-        await browser.takeScreenshot();
         await ui5.userInteraction.click(this.step2ButtonSelector);
     };
 
@@ -23,7 +22,6 @@ class CheckoutPage extends BasePage {
     }
     async selectPayViaBank() {
         await ui5.userInteraction.click(this.payViaBankPanelButtonSelector);
-        await browser.takeScreenshot();
     };
 
     step3ButtonSelector = {
@@ -94,7 +92,6 @@ class CheckoutPage extends BasePage {
     async enterCountry(country) {
         await ui5.userInteraction.click(this.countryFieldSelector);
         await ui5.userInteraction.clearAndFill(this.countryFieldSelector, country);
-        await browser.takeScreenshot();
         await common.userInteraction.pressEnter();
     };
 
@@ -127,13 +124,15 @@ class CheckoutPage extends BasePage {
             "id": "*submitOrder"
         }
     }
-    async clckSubmitOrder() {
+    yesConfirmationButtonSelector = {
+        "elementProperties": {
+            "metadata": "sap.m.Button",
+            "text": "Yes"
+        }
+    }
+    async submitOrder() {
         await ui5.userInteraction.click(this.submitButtonSelector);
-        await util.browser.sleep(1000);
-        await browser.takeScreenshot();
-        await common.userInteraction.pressEnter();
-        await util.browser.sleep(5000);
-        await browser.takeScreenshot();
+        await ui5.userInteraction.click(this.yesConfirmationButtonSelector);
     };
 }    
 module.exports = new CheckoutPage();

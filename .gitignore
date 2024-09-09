@@ -1,5 +1,4 @@
 node_modules
-wdio.conf.js
-# Comments
+#Allure Reports files
 allure-report
 allure-results
