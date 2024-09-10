@@ -11,7 +11,8 @@ describe("Place a new Order", function() {
     });
 
     it("Step 02: Add Item to Shopping Cart", async function() {
-        await welcomePage.addItemToCart();
+        // await welcomePage.addItemToCart();
+        await welcomePage.addItemToCartByName("Smartphone Alpha");
         await browser.takeScreenshot();
     });
 
@@ -26,6 +27,7 @@ describe("Place a new Order", function() {
     it("Step 05: Complete the Payment Type step", async function() {
         await checkoutPage.moveToPmtTypeStep();
         await checkoutPage.selectPayViaBank();
+        await checkoutPage.waitForButtonIsVisible();
         await browser.takeScreenshot();
         await checkoutPage.moveToAccDetailsStep();
     });

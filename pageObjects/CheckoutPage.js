@@ -31,6 +31,16 @@ class CheckoutPage extends BasePage {
                 "id": "*paymentTypeStep-nextButton"
         }
     }
+    async waitForButtonIsVisible() {
+        await browser.waitUntil(
+            async () => {
+            return (await ui5.element.isVisible(this.step3ButtonSelector));
+            }, {
+            timeout: 5000,
+            timeoutMsg: 'Product Catalog page has not been loaded. Search field is not visible.'
+            }
+        )
+    }
     async moveToAccDetailsStep() {
         await ui5.userInteraction.click(this.step3ButtonSelector);
     };
