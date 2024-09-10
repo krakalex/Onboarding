@@ -6,6 +6,7 @@ describe("Perform Search Functioanlity", function() {
 
     it("Step 01: Open the Fiori app", async function() {
         await welcomePage.openApplication();
+        await productCatalog.waitForPageOpened();
     });
 
     it("Step 02: Enter a value into the Search field", async function() {
@@ -14,7 +15,8 @@ describe("Perform Search Functioanlity", function() {
 
     it("Step 03: Verify that the search result contains only searched items", async function() {
         await productCatalog.getiItemElements();
-        await productCatalog.verifyItemTitlesContainsSought(searchData.searchValue);
         await productCatalog.verifyItemTitlesContainText(searchData.searchValue);
+        await productCatalog.verifyItemTitlesContainText2(searchData.searchValue);
+        await productCatalog.verifyItemsTitlesContainText(searchData.searchValue);
     });
 })
