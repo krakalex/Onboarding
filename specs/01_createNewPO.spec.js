@@ -11,7 +11,6 @@ describe("Place a new Order", function() {
     });
 
     it("Step 02: Add Item to Shopping Cart", async function() {
-        // await welcomePage.addItemToCart();
         await welcomePage.addItemToCartByName("Smartphone Alpha");
         await browser.takeScreenshot();
     });
