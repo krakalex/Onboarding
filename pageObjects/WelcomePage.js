@@ -20,6 +20,14 @@ class WelcomePage extends BasePage {
         )
     }
 
+    itemsSelector = {
+        "elementProperties": {
+            "viewName": "sap.ui.demo.cart.view.Welcome",
+            "metadata": "sap.m.ObjectIdentifier",
+            "bindingContextPath": "*"
+        }    
+    }
+
     itemsTitleSelector = {
         "elementProperties": {
             "viewName": "sap.ui.demo.cart.view.Welcome",
@@ -58,7 +66,7 @@ class WelcomePage extends BasePage {
     };
 
     async addItemToCartByName(itemName) {
-        const items = await ui5.element.getAllDisplayed(this.itemsTitleSelector);
+        const items = await ui5.element.getAllDisplayed(this.itemsSelector);
         for (const item of items) {
             const title = await ui5.control.getProperty(item, "title");
             const bindingContextPath = await ui5.control.getBindingContextPathProperty(item);
