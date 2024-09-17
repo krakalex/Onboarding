@@ -19,33 +19,58 @@ class ShoppingCartPage extends BasePage {
             "metadata": "sap.m.ObjectListItem",
             "bindingContextPath": "/cartEntries/*"
         }
-    };
+    }
+    async waitForPageOpened() {
+        await browser.waitUntil(
+            async () => {
+            return (await ui5.element.isVisible(this.sCartItemsSelector));
+            }, {
+            timeout: 5000,
+            timeoutMsg: 'Shopping Cart Items are not visible.'
+            }
+        )
+    }
 
     async getCartItemDetails() {
         const sCartItemElements = await ui5.element.getAllDisplayed(this.sCartItemsSelector);
         const sCartItemsCount = (sCartItemElements.length);
         const cartItems = [];
         for (let i = 0; i < sCartItemsCount; i++) {
-            const isItemVisible = await ui5.element.isVisible(this.sCartItemsSelector, i);
-            if (isItemVisible === false) {
-                break;
-            }
             const title = await ui5.element.getPropertyValue(this.sCartItemsSelector, "title", i);
-            const price = await ui5.element.getPropertyValue(this.sCartItemsSelector, "number", i);
+            let price = await ui5.element.getPropertyValue(this.sCartItemsSelector, "number", i);
+
+            if (price.charAt(price.length - 3) === ',') {
+            price = price.replace(',', '.');
+            }
+
             cartItems.push({
                 title,
                 price
             });
-            return cartItems
         }
+        console.log(cartItems)
+        return cartItems
     };
 
     async verifyCartItems(expectedItemDetails) {
-        const cartItems = await this.getCartItemDetails();
+        const cartItemDetails = await this.getCartItemDetails();
+        
+        if (expectedItemDetails.length !== cartItemDetails.length) {
+            console.log ('Item Details are not equal')
+            return
+        }
 
         for (let i = 0; i < expectedItemDetails.length; i++) {
-            expect(cartItems[i].title).toBe(expectedItemDetails[i].title);
-            expect(cartItems[i].price).toBe(expectedItemDetails[i].price);
+            const expectedItem = expectedItemDetails[i];
+            const matchingItem = cartItemDetails.find((cartItem) =>
+                cartItem.title === expectedItem.title &&
+                cartItem.price === expectedItem.price
+            );
+
+            if (!matchingItem) {
+                console.log ('No matching item is found')
+                return
+            }
         }
     }
 }

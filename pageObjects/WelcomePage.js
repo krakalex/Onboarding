@@ -43,26 +43,57 @@ class WelcomePage extends BasePage {
         }
     }
 
-    async getItemDetails() {
+    async getItemDetailsByIndex(indexes) {
         const itemDetails = [];
         const itemTitles = await ui5.element.getAllDisplayed(this.itemsTitleSelector);
         const itemPrices = await ui5.element.getAllDisplayed(this.itemsPriceSelector);
 
-        for (let i = 0; i < itemPrices.length; i++) {
-            const title = await ui5.control.getProperty(itemTitles[i], "title");
-            const price = await ui5.control.getProperty(itemPrices[i], "number");
+        for (let i = 0; i < indexes.length; i++){
+            const index = indexes[i];
+
+            if (index >= itemTitles.length || index >= itemPrices.length) {
+                console.log('Invalid Index, exceeds the number of available items.')
+                return
+            }
+
+            const title = await ui5.element.getPropertyValue(this.itemsTitleSelector, "title", index);
+            let price = await ui5.element.getPropertyValue(this.itemsPriceSelector, "number", index);
+
+            if (price.charAt(price.length - 3) === ',') {
+                price = price.replace(',', '.');
+            }
+
+            if (!title || !price) {
+                console.log ('Item Details mismatch')
+                return
+            }
 
             itemDetails.push({
                 title,
                 price
             });
         }
+        console.log(itemDetails)
         return itemDetails;
     }
-
-    async addItemsToCart() {
-        await ui5.userInteraction.click(this.addItemToCartButtonSelector, 0);
-        await ui5.userInteraction.click(this.addItemToCartButtonSelector, 1);
+    async addPromoItemsToCartByIndex(indexes) {
+        const itemElements = await ui5.element.getAllDisplayed(this.addItemToCartButtonSelector);
+        
+        for (let i = 0; i < indexes.length; i++){
+            const index = indexes[i];
+            if (index >= itemElements.length) {
+                console.log('Invalid Index, exceeds the number of available items.')
+                return
+            }
+            const addItemToCartButtonSelector = {
+                "elementProperties": {
+                    "viewName": "sap.ui.demo.cart.view.Welcome",
+                    "metadata": "sap.m.Button",
+                    "bindingContextPath": `/Promoted/${index}`
+                }
+            }
+            await ui5.userInteraction.click(addItemToCartButtonSelector);
+        }
     };
 
     async addItemToCartByName(itemName) {
