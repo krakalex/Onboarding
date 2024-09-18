@@ -1,9 +1,8 @@
 const welcomePage = require("../pageObjects/WelcomePage");
 const shoppingCartPage = require("../pageObjects/ShoppingCartPage");
-const indexData = require("../data/indexData.json");
 
 describe("Perform Search Functioanlity", function() {
-    let expectedItemDetails;
+    let expectedItemDetails = [];
 
     it("Step 01: Open the Fiori app", async function() {
         await welcomePage.openApplication();
@@ -11,8 +10,9 @@ describe("Perform Search Functioanlity", function() {
     });
 
     it("Step 02: Add Promoted Items to Shopping Cart", async function() {
-        await welcomePage.addPromoItemsToCartByIndex(indexData.indexes);
-        expectedItemDetails = await welcomePage.getItemDetailsByIndex(indexData.indexes);
+        const index = 1;
+        await welcomePage.addPromoItemsToCartByIndex(index);
+        expectedItemDetails.push(await welcomePage.getItemDetailsByIndex(index));
     });
 
     it("Step 03: Verify that the Shopping Cart contains only added items", async function() {

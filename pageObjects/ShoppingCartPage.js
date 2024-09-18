@@ -13,7 +13,7 @@ class ShoppingCartPage extends BasePage {
         await ui5.userInteraction.click(this.proceedButtonSelector);
     };
 
-    sCartItemsSelector = {
+    cartItemsSelector = {
         "elementProperties": {
             "viewName": "sap.ui.demo.cart.view.Cart",
             "metadata": "sap.m.ObjectListItem",
@@ -23,7 +23,7 @@ class ShoppingCartPage extends BasePage {
     async waitForPageOpened() {
         await browser.waitUntil(
             async () => {
-            return (await ui5.element.isVisible(this.sCartItemsSelector));
+            return (await ui5.element.isVisible(this.cartItemsSelector));
             }, {
             timeout: 5000,
             timeoutMsg: 'Shopping Cart Items are not visible.'
@@ -32,12 +32,12 @@ class ShoppingCartPage extends BasePage {
     }
 
     async getCartItemDetails() {
-        const sCartItemElements = await ui5.element.getAllDisplayed(this.sCartItemsSelector);
-        const sCartItemsCount = (sCartItemElements.length);
+        const cartItemElements = await ui5.element.getAllDisplayed(this.cartItemsSelector);
+        const cartItemsCount = (cartItemElements.length);
         const cartItems = [];
-        for (let i = 0; i < sCartItemsCount; i++) {
-            const title = await ui5.element.getPropertyValue(this.sCartItemsSelector, "title", i);
-            let price = await ui5.element.getPropertyValue(this.sCartItemsSelector, "number", i);
+        for (let i = 0; i < cartItemsCount; i++) {
+            const title = await ui5.element.getPropertyValue(this.cartItemsSelector, "title", i);
+            let price = await ui5.element.getPropertyValue(this.cartItemsSelector, "number", i);
 
             if (price.charAt(price.length - 3) === ',') {
             price = price.replace(',', '.');
@@ -56,8 +56,7 @@ class ShoppingCartPage extends BasePage {
         const cartItemDetails = await this.getCartItemDetails();
         
         if (expectedItemDetails.length !== cartItemDetails.length) {
-            console.log ('Item Details are not equal')
-            return
+            throw new Error('Item Details are not equal');
         }
 
         for (let i = 0; i < expectedItemDetails.length; i++) {
@@ -68,8 +67,7 @@ class ShoppingCartPage extends BasePage {
             );
 
             if (!matchingItem) {
-                console.log ('No matching item is found')
-                return
+                throw new Error('No matching item is found');
             }
         }
     }
